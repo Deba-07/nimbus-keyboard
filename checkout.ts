@@ -1,5 +1,3 @@
-// /checkout.ts
-
 declare global {
   interface Window {
     Razorpay: any;
@@ -16,7 +14,7 @@ async function loadRazorpay(): Promise<boolean> {
 
     const script = document.createElement("script");
     script.id = "razorpay-script";
-    script.src = "https://checkout.razorpay.com/v1/checkout.js"; // ✅ CORRECT URL
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
 
     script.onload = () => resolve(true);
