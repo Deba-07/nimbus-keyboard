@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scene } from "./Scene";
 import gsap from "gsap";
@@ -10,6 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Loader } from "@/components/common/Loader";
 import { useProgress } from "@react-three/drei";
 import clsx from "clsx";
+import { checkout } from "@/checkout";
 
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
 
@@ -45,6 +46,13 @@ type HeroProps = {
 };
 
 const Hero: FC<HeroProps> = ({ heading, body, ctaText, subHeading }) => {
+  const button = useRef<HTMLButtonElement>(null);
+
+  async function handleCheckout() {
+    if (button.current) button.current.disabled = true;
+    await checkout();
+    if (button.current) button.current.disabled = false;
+  }
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
@@ -115,9 +123,14 @@ const Hero: FC<HeroProps> = ({ heading, body, ctaText, subHeading }) => {
             {subHeading}
           </h2>
 
-          <p className="mb-4 text-lg leading-relaxed text-white/90 font-medium drop-shadow-[0_3px_6px_rgba(0,0,0,0.75)]">{body}</p>
+          <p className="mb-4 text-lg leading-relaxed font-medium text-white/90 drop-shadow-[0_3px_6px_rgba(0,0,0,0.75)]">
+            {body}
+          </p>
 
-          <button className="font-bold-slanted group flex w-fit items-center gap-1 rounded bg-[#01A7E1] px-4 py-2 text-2xl uppercase transition">
+          <button
+            className="font-bold-slanted group flex w-fit items-center gap-1 rounded bg-[#01A7E1] px-4 py-2 text-2xl uppercase transition"
+            onClick={handleCheckout}
+          >
             {ctaText}
             <span className="transition group-hover:translate-x-1">{">"}</span>
           </button>
