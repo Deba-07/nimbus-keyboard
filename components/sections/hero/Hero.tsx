@@ -115,7 +115,7 @@ const Hero: FC<HeroProps> = ({ heading, body, ctaText, subHeading }) => {
             {subHeading}
           </h2>
 
-          <p className="mb-4 text-lg leading-relaxed text-white/90 font-medium">{body}</p>
+          <p className="mb-4 text-lg leading-relaxed text-white/90 font-medium drop-shadow-[0_3px_6px_rgba(0,0,0,0.75)]">{body}</p>
 
           <button className="font-bold-slanted group flex w-fit items-center gap-1 rounded bg-[#01A7E1] px-4 py-2 text-2xl uppercase transition">
             {ctaText}
